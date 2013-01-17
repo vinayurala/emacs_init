@@ -47,7 +47,10 @@
     (interactive "DDirectory: ")
     (shell-command
      (format "%s -f %s/TAGS -e -R %s --exclude=.git" path-to-ctags dir-name (directory-file-name dir-name)))
+    (message "Tags created successfully!")
   )
+;; Shortcut for tag creation 'C-c C-t'
+(global-set-key (kbd "C-c C-t") 'create-tags)
 ;; Open in maximized window, by default
 (defun toggle-fullscreen ()
   (interactive)

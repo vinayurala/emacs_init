@@ -37,7 +37,7 @@
        "int main()" \n
        "{" \n
        > _ \n
-       "printf(\"\n\");" \n
+       "printf(\"\\n\");" \n
        "return 0;" \n
        "}" > \n)))
 ;; ctags -e from emacs prompt. Use M-x create-tags
@@ -67,3 +67,5 @@
 (global-set-key (kbd "C-x C-a C-b") 'kill-other-buffers)
 ;; C-c C-u is already taken; hence going with 'C-c u'
 (global-set-key (kbd "C-c u") 'uncomment-region)
+;; Compile shortcut
+(global-set-key (kbd "C-c C-g") 'compile)

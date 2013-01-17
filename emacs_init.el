@@ -49,8 +49,6 @@
      (format "%s -f %s/TAGS -e -R %s --exclude=.git" path-to-ctags dir-name (directory-file-name dir-name)))
     (message "Tags created successfully!")
   )
-;; Shortcut for tag creation 'C-c C-t'
-(global-set-key (kbd "C-c C-t") 'create-tags)
 ;; Open in maximized window, by default
 (defun toggle-fullscreen ()
   (interactive)
@@ -65,10 +63,16 @@
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
 (message "Killed all other buffers"))
+(defun compile-curr-file ()
+  (interactive)
+  (funcall 'compile 'buffer-file-name))
+
 ;; Keyboard shortcut; closes all buffers except current one. 
 ;; See prev function for definition
 (global-set-key (kbd "C-x C-a C-b") 'kill-other-buffers)
 ;; C-c C-u is already taken; hence going with 'C-c u'
 (global-set-key (kbd "C-c u") 'uncomment-region)
 ;; Compile shortcut
-(global-set-key (kbd "C-c C-g") 'compile)
+(global-set-key (kbd "C-c C-g") 'compile-curr-file)
+;; Shortcut for tag creation 'C-c C-t'
+(global-set-key (kbd "C-c C-t") 'create-tags)

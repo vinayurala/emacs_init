@@ -41,7 +41,7 @@
        "return 0;" \n
        "}" > \n)))
 ;; ctags -e from emacs prompt. Use M-x create-tags
-  (setq path-to-ctags "ctags") ;; <- your ctags path here
+  (setq path-to-ctags "ctags")
   (defun create-tags (dir-name)
     "Create tags file."
     (interactive "DDirectory: ")
@@ -49,6 +49,7 @@
      (format "%s -f %s/TAGS -e -R %s --exclude=.git" path-to-ctags dir-name (directory-file-name dir-name)))
     (message "Tags created successfully!")
   )
+
 ;; Open in maximized window, by default
 (defun toggle-fullscreen ()
   (interactive)
@@ -57,22 +58,45 @@
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
 	    		 '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
 )
+
 (toggle-fullscreen)
+
+;; Function to kill all buffers except current
 (defun kill-other-buffers ()
   "Kill all buffers except current."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
 (message "Killed all other buffers"))
-(defun compile-curr-file ()
-  (interactive)
-  (funcall 'compile 'buffer-file-name))
 
-;; Keyboard shortcut; closes all buffers except current one. 
-;; See prev function for definition
+;; Compile current file using g++ / gcc
+(defun compile-curr-file (output-file)
+  (interactive (list (read-file-name "Output file name: ")))
+  (setq final-output-file (file-name-nondirectory output-file))
+  (setq curr-file (file-name-nondirectory buffer-file-name))
+  (setq file-extn (file-name-extension curr-file))
+  (if (string= "c" file-extn)
+      (setq compiler-type "gcc")
+    (setq compiler-type "g++"))
+    (if  (string= final-output-file curr-file)
+    	(setq final-output-file "a.out")
+      (setq final-output-file output-file))
+  (setq compile-output 
+	(shell-command-to-string
+	 (format "%s -g %s -o %s" compiler-type buffer-file-name final-output-file)))
+  (if (string= "" compile-output) 
+      (message "Compilation succeeded. Output file: %s" final-output-file)
+  (message "%s" compile-output))
+)
+
+;; Keyboard shortcuts
+
+;; Kill-other-buffers
 (global-set-key (kbd "C-x C-a C-b") 'kill-other-buffers)
-;; C-c C-u is already taken; hence going with 'C-c u'
-(global-set-key (kbd "C-c u") 'uncomment-region)
-;; Compile shortcut
-(global-set-key (kbd "C-c C-g") 'compile-curr-file)
-;; Shortcut for tag creation 'C-c C-t'
-(global-set-key (kbd "C-c C-t") 'create-tags)
+;; Uncomment-region
+(global-set-key (kbd "C-x u") 'uncomment-region)
+;; compile-curr-file 
+(global-set-key (kbd "C-x C-g") 'compile-curr-file)
+;; Tag creation (ctags)
+(global-set-key (kbd "C-x C-t") 'create-tags)
+;; Compile (make -k)
+(global-set-key (kbd "C-x C-m") 'compile)

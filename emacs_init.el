@@ -14,6 +14,12 @@
 (setq make-backup-files nil)
 ;; Gtags init; I'm using exuberant-ctags now
 (autoload 'gtags-mode "gtags" "" t)
+;; auto-complete
+(add-to-list 'load-path "/home/vinay/.emacs.d")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "/home/vinay/.emacs.d/ac-dict")
+(ac-config-default)
+
 (auto-insert-mode)
 ;; C++ skeleton (C++ template from which a C++ file is created)
 (eval-after-load 'autoinsert
@@ -93,10 +99,11 @@
 ;; Kill-other-buffers
 (global-set-key (kbd "C-x C-a C-b") 'kill-other-buffers)
 ;; Uncomment-region
-(global-set-key (kbd "C-x u") 'uncomment-region)
+(global-set-key (kbd "C-c u") 'uncomment-region)
 ;; compile-curr-file 
 (global-set-key (kbd "C-x C-g") 'compile-curr-file)
 ;; Tag creation (ctags)
 (global-set-key (kbd "C-x C-t") 'create-tags)
 ;; Compile (make -k)
 (global-set-key (kbd "C-x C-m") 'compile)
+(put 'upcase-region 'disabled nil)

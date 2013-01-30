@@ -31,8 +31,9 @@
      '("\\.\\(CC?\\|cc\\|cxx\\|cpp\\|c++\\)\\'" . "C++ skeleton")
      '( \n
        "#include <iostream>" \n \n
+       "#define null NULL" \n \n
        "using namespace std;" \n \n
-       "int main()" \n
+       "int main()" \n 
        "{" \n
        > _ \n
        "cout<<endl;" \n

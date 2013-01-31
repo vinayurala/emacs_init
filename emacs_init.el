@@ -45,6 +45,7 @@
      '("\\.c\\'" . "C skeleton")
      '( \n
        "#include <stdio.h>" \n \n
+       "#define null NULL" \n \n
        "int main()" \n
        "{" \n
        > _ \n

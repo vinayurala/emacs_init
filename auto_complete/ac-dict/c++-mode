@@ -1,3 +1,5 @@
+<algorithm>
+<vector>
 and
 and_eq
 asm
@@ -36,6 +38,7 @@ long
 mutable
 namespace
 new
+node
 not
 not_eq
 operator
@@ -54,6 +57,7 @@ static
 static_cast
 struct
 switch
+temp
 template
 this
 throw

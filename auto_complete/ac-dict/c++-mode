@@ -43,7 +43,10 @@ insert
 int
 iterator
 long
+list
 map
+max
+min
 mutable
 namespace
 new
@@ -60,6 +63,8 @@ protected
 public
 push
 push_back
+queue
+remove_if
 register
 reinterpret_cast
 return
@@ -68,10 +73,12 @@ signed
 sizeof
 sort
 stable_sort
+stack
 static
 static_cast
 string
 struct
+swap
 switch
 temp
 template

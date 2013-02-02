@@ -53,6 +53,7 @@ not_eq
 operator
 or
 or_eq
+pair
 pop
 private
 protected

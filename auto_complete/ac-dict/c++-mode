@@ -26,6 +26,7 @@ do
 double
 dynamic_cast
 else
+empty
 end
 enum
 erase

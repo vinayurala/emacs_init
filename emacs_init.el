@@ -13,7 +13,8 @@
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
-
+(blink-cursor-mode 0)
+(setq-default cursor-type 'bar)
 ;; Prevent backup files(*~ files) from being created.
 (setq make-backup-files nil)
 ;; Gtags init; I'm using exuberant-ctags now

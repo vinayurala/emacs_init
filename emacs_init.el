@@ -13,8 +13,13 @@
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+;; Set cursor to a vertical bar
 (blink-cursor-mode 0)
 (setq-default cursor-type 'bar)
+;; Display date and time
+(setq display-time-day-and-date t
+      display-time-24hr-format t)
+(display-time)
 ;; Prevent backup files(*~ files) from being created.
 (setq make-backup-files nil)
 ;; Gtags init; I'm using exuberant-ctags now

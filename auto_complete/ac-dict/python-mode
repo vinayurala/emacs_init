@@ -1,4 +1,6 @@
 __import__
+__str__
+__name__
 abs
 and
 any
@@ -13,6 +15,7 @@ buffer
 class
 cmp
 coerce
+combinations
 complex
 continue
 def
@@ -54,6 +57,7 @@ is
 isinstance
 issubclass
 iter
+itertools
 lambda
 len
 list
@@ -70,13 +74,16 @@ open
 or
 ord
 pass
+pickle
 pow
 print
 print
 property
 raise
+random
 range
 raw_input
+re
 reduce
 reload
 repr

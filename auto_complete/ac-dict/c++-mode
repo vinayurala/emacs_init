@@ -9,6 +9,7 @@ auto
 begin
 bitand
 bitor
+bitset
 bool
 break
 case

@@ -20,6 +20,8 @@
 (setq display-time-day-and-date t
       display-time-24hr-format t)
 (display-time)
+;; Display column number of the line
+(setq column-number-mode t)
 ;; Prevent backup files(*~ files) from being created.
 (setq make-backup-files nil)
 ;; Gtags init; I'm using exuberant-ctags now
@@ -29,7 +31,11 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "/home/vinay/.emacs.d/ac-dict")
 (ac-config-default)
-
+;;
+(add-hook 'emacs-lisp-mode-hook
+	  (function (lambda ()
+		      (add-hook 'local-write-file-hooks
+				'check-parens))))
 (auto-insert-mode)
 ;; C++ skeleton (C++ template from which a C++ file is created)
 (eval-after-load 'autoinsert
@@ -105,6 +111,46 @@
       (message "Compilation succeeded. Output file: %s" final-output-file)
   (message "%s" compile-output))
 )
+
+;; Insert closing braces in C/C++ files
+(defun my-c-mode-insert-lcurly ()
+  (interactive)
+  (insert "{")
+  (let ((pps (syntax-ppss)))
+    (when (and (eolp) (not (or (nth 3 pps) (nth 4 pps)))) ;; EOL and not in string or comment
+      (c-indent-line)
+      (insert "\n\n}")
+      (c-indent-line)
+      (forward-line -1)
+      (c-indent-line))))
+
+(eval-after-load 'cc-mode
+  '(define-key c-mode-base-map "{" 'my-c-mode-insert-lcurly))
+
+;; Insert closing paranthesis in C/C++ files
+(defun my-c-mode-insert-lparan ()
+  (interactive)
+  (insert "(")
+  (let ((pps (syntax-ppss)))
+    (when (and (eolp) (not (or (nth 3 pps) (nth 4 pps)))) ;; EOL and not in string or comment
+      (insert ")")
+      (forward-char -1))))
+
+(eval-after-load 'cc-mode
+  '(define-key c-mode-base-map "(" 'my-c-mode-insert-lparan))
+
+;; Insert closing square brackets in C/C++ files
+(defun my-c-mode-insert-lsquare ()
+  (interactive)
+  (insert "[")
+  (let ((pps (syntax-ppss)))
+    (when (and (eolp) (not (or (nth 3 pps) (nth 4 pps)))) ;; EOL and not in string or comment
+      (insert "]")
+      (forward-char -1))))
+
+(eval-after-load 'cc-mode
+  '(define-key c-mode-base-map "[" 'my-c-mode-insert-lsquare))
+
 
 ;; Keyboard shortcuts
 
